@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figure Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container py-4">
+    <div class="header">
+      <h1><i class="fas fa-filter me-2"></i>Local Dews Dynamic Figure</h1>
+      <p>Build custom queries by selecting filters below</p>
+    </div>
+
+    <!-- Identifier Selection & Upload -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="section-title"><i class="fas fa-database"></i> Identifier Source</h5>
+
+        <div class="mb-3">
+          <label for="identifierType" class="form-label">Select Identifier</label>
+          <select id="identifierType" class="form-select">
+            <option value="company_id">Company ID</option>
+            <option value="duns_no">DUNS Number</option>
+            <option value="iiNumber">iiNumber</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="excelUpload" class="form-label">Upload Excel (.xlsx)</label>
+          <input type="file" id="excelUpload" class="form-control" accept=".xlsx" />
+          <div class="form-text">File must have a header row with column names</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="queryBuilderAccordion">
+      <!-- General Section -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGeneral">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneral"
+            aria-expanded="true" aria-controls="collapseGeneral">
+            <i class="fas fa-cog accordion-icon"></i>General Section
+          </button>
+        </h2>
+        <div id="collapseGeneral" class="accordion-collapse collapse show" aria-labelledby="headingGeneral"
+          data-bs-parent="#queryBuilderAccordion">
+          <div class="accordion-body">
+            <!-- Internal Data -->
+            <div class="filter-group">
+              <h5 class="section-title"><i class="fas fa-database"></i>Internal Data</h5>
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="nda">
+                    <label class="form-check-label" for="nda">NDA</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="keepMarketing">
+                    <label class="form-check-label" for="keepMarketing">Keep on Marketing List</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="hq">
+                    <label class="form-check-label" for="hq">HQ</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-2 mb-3">
+                <div class="col-md-6">
+                  <div class="toggle-section" data-target="revisionTypeBox">
+                    <label>Revision Type</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="revisionTypeBox">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="revisionType1" value="1">
+                      <label class="form-check-label" for="revisionType1">AD</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="revisionType2" value="2">
+                      <label class="form-check-label" for="revisionType2">Branch Report</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="revisionType3" value="3">
+                      <label class="form-check-label" for="revisionType3">Duns Support Record</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="revisionType4" value="4">
+                      <label class="form-check-label" for="revisionType4">Full Revision</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="revisionType5" value="5">
+                      <label class="form-check-label" for="revisionType5">Original Report</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="revisionType6" value="6">
+                      <label class="form-check-label" for="revisionType6">Unable to Locate</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="revisionType8" value="8">
+                      <label class="form-check-label" for="revisionType8">Company Support</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="toggle-section" data-target="reportTypeBox">
+                    <label>Report Type</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="reportTypeBox">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="reportTypeAC" value="AC">
+                      <label class="form-check-label" for="reportTypeAC">AC - Active</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="reportTypeOB" value="OB">
+                      <label class="form-check-label" for="reportTypeOB">OB - Out of Business</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="reportTypeUTC" value="UTC">
+                      <label class="form-check-label" for="reportTypeUTC">UTC - Unable to Confirm</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="filter-group">
+              <h5 class="section-title d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-map-marker-alt"></i>Address</span>
+              </h5>
+
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input" type="checkbox" id="toggleAddressshow" checked>
+                      <label class="form-check-label" for="toggleAddressshow">
+                        <span class="ms-1">Show Address</span>
+                      </label>
+                    </div>
+
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input" type="checkbox" id="toggleAddressrequired">
+                      <label class="form-check-label" for="toggleAddressrequired">
+                        <span class="ms-1">Require</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <small class="text-muted d-block">
+                    <i class="fas fa-info-circle me-1"></i>
+                    When required, only records with Address codes will be shown
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="addressView">
+                    <label class="form-check-label" for="addressView">Is View</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="addressTypeBox">
+                    <label>Address Type</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="addressTypeBox">
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType1"><label
+                        class="form-check-label" for="addressType1">Main Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType3"><label
+                        class="form-check-label" for="addressType3">Registered Office Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType4"><label
+                        class="form-check-label" for="addressType4">Former Physical Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType5"><label
+                        class="form-check-label" for="addressType5">Former Mailing Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType6"><label
+                        class="form-check-label" for="addressType6">Current Mailing Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType7"><label
+                        class="form-check-label" for="addressType7">Future Moving Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType8"><label
+                        class="form-check-label" for="addressType8">Home Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType9"><label
+                        class="form-check-label" for="addressType9">Apartment Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType10"><label
+                        class="form-check-label" for="addressType10">Current Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType11"><label
+                        class="form-check-label" for="addressType11">NPWP Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType12"><label
+                        class="form-check-label" for="addressType12">Billing Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType13"><label
+                        class="form-check-label" for="addressType13">NIB Address</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="addressType14"><label
+                        class="form-check-label" for="addressType14">AHU Address</label></div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="countryBox">
+                    <label>Country</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="countryBox">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="country1">
+                      <label class="form-check-label" for="country1">Indonesia</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="country2">
+                      <label class="form-check-label" for="country2">USA</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="country3">
+                      <label class="form-check-label" for="country3">UK</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="country4">
+                      <label class="form-check-label" for="country4">Germany</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="country5">
+                      <label class="form-check-label" for="country5">Japan</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="country6">
+                      <label class="form-check-label" for="country6">Australia</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="stateBox">
+                    <label>State</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="stateBox">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="state1">
+                      <label class="form-check-label" for="state1">Jakarta</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="state2">
+                      <label class="form-check-label" for="state2">California</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="state3">
+                      <label class="form-check-label" for="state3">New York</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="state4">
+                      <label class="form-check-label" for="state4">Texas</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="cityBox">
+                    <label>City</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="cityBox">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="city1">
+                      <label class="form-check-label" for="city1">Bandung</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="city2">
+                      <label class="form-check-label" for="city2">Los Angeles</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="city3">
+                      <label class="form-check-label" for="city3">New York City</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="city4">
+                      <label class="form-check-label" for="city4">London</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="city5">
+                      <label class="form-check-label" for="city5">Tokyo</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIC Section (Dipindahkan keluar dari Address) -->
+            <div class="filter-group">
+              <h5 class="section-title d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-industry"></i>SIC</span>
+              </h5>
+
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input" type="checkbox" id="toggleSICshow" checked>
+                      <label class="form-check-label" for="toggleSICshow">
+                        <span class="ms-1">Show SIC</span>
+                      </label>
+                    </div>
+
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input" type="checkbox" id="toggleSICrequired">
+                      <label class="form-check-label" for="toggleSICrequired">
+                        <span class="ms-1">Require</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <small class="text-muted d-block">
+                    <i class="fas fa-info-circle me-1"></i>
+                    When required, only records with SIC codes will be shown
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mainSic">
+                    <label class="form-check-label" for="mainSic">Main</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="sicView">
+                    <label class="form-check-label" for="sicView">Is View</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="toggle-section" data-target="sicBox">
+                <label>SIC Code</label>
+                <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+              </div>
+              <div class="scroll-box custom-scrollbar mt-2" id="sicBox">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sic1">
+                  <label class="form-check-label" for="sic1">1234 - Manufacturing</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sic2">
+                  <label class="form-check-label" for="sic2">5678 - Technology</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sic3">
+                  <label class="form-check-label" for="sic3">9012 - Healthcare</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sic4">
+                  <label class="form-check-label" for="sic4">3456 - Finance</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sic5">
+                  <label class="form-check-label" for="sic5">7890 - Retail</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Management Section -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingManagement">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseManagement" aria-expanded="false" aria-controls="collapseManagement">
+            <i class="fas fa-users accordion-icon"></i>Management Section
+          </button>
+        </h2>
+        <div id="collapseManagement" class="accordion-collapse collapse" aria-labelledby="headingManagement"
+          data-bs-parent="#queryBuilderAccordion">
+          <div class="accordion-body">
+            <div class="filter-group">
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input" type="checkbox" id="toggleManagementshow">
+                      <label class="form-check-label" for="toggleManagementshow">
+                        <span class="ms-1">Show Management</span>
+                      </label>
+                    </div>
+
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input" type="checkbox" id="toggleManagementrequired">
+                      <label class="form-check-label" for="toggleManagementrequired">
+                        <span class="ms-1">Require</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <small class="text-muted d-block">
+                    <i class="fas fa-info-circle me-1"></i>
+                    When required, only records with Company Management codes will be shown
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="ceo">
+                    <label class="form-check-label" for="ceo">CEO</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="director">
+                    <label class="form-check-label" for="director">Corporate Director</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="founder">
+                    <label class="form-check-label" for="founder">Founder of Subject</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="activeOps">
+                    <label class="form-check-label" for="activeOps">Active in Daily Operations</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mgmtView">
+                    <label class="form-check-label" for="mgmtView">Is View</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mgmtVerified">
+                    <label class="form-check-label" for="mgmtVerified">Is Verified</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="titleBox">
+                    <label>Title</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="titleBox">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="title1">
+                      <label class="form-check-label" for="title1">President</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="title2">
+                      <label class="form-check-label" for="title2">Manager</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="title3">
+                      <label class="form-check-label" for="title3">Director</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="title4">
+                      <label class="form-check-label" for="title4">Vice President</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="functionBox">
+                    <label>Function</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="functionBox">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="function1">
+                      <label class="form-check-label" for="function1">HR</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="function2">
+                      <label class="form-check-label" for="function2">Finance</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="function3">
+                      <label class="form-check-label" for="function3">Operations</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="function4">
+                      <label class="form-check-label" for="function4">Technology</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="title2Box">
+                    <label>2nd Title</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="title2Box">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="title21">
+                      <label class="form-check-label" for="title21">Assistant Manager</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="title22">
+                      <label class="form-check-label" for="title22">Deputy Director</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="title23">
+                      <label class="form-check-label" for="title23">Associate VP</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="toggle-section" data-target="function2Box">
+                    <label>2nd Function</label>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+                  </div>
+                  <div class="scroll-box custom-scrollbar mt-2" id="function2Box">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="function21">
+                      <label class="form-check-label" for="function21">Operations</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="function22">
+                      <label class="form-check-label" for="function22">Marketing</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="function23">
+                      <label class="form-check-label" for="function23">Research</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-generate" id="generateQueryBtn">
+        <i class="fas fa-bolt me-2"></i>Figure Data
+      </button>
+    </div>
+
+    <div class="footer-note">
+      <p><i class="fas fa-info-circle me-1"></i>Your selections will be used to build a custom Local Dews Database Query</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

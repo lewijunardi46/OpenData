@@ -1,0 +1,107 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:17
+    container_name: airflow_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1Sampai9
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_backup:/var/lib/postgresql/backup
+    networks:
+      - airflow_network
+    ports:
+      - "5432:5432"
+
+  airflow-init:
+    image: apache/airflow:2.11.0
+    container_name: airflow_init
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://redis:6379/0
+    entrypoint: ["/bin/bash", "-c", "airflow db init && airflow users create --username admin --password 1Sampai9 --firstname Admin --lastname User --role Admin --email admin@example.com"]
+    networks:
+      - airflow_network
+
+  redis:
+    image: redis:8.0.2
+    container_name: airflow_redis
+    restart: always
+    networks:
+      - airflow_network
+
+  webserver:
+    image: apache/airflow:2.11.0
+    container_name: airflow_webserver
+    restart: always
+    depends_on:
+      - airflow-init
+      - postgres
+      - redis
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://redis:6379/0
+    ports:
+      - "8080:8080"
+    command: webserver
+    networks:
+      - airflow_network
+    volumes:
+      - airflow_logs:/opt/airflow/logs
+      - ./dags:/opt/airflow/dags
+    #user: "1000:1000"  # Tambahkan UID dan GID yang sesuai
+
+  scheduler:
+    image: apache/airflow:2.11.0
+    container_name: airflow_scheduler
+    restart: always
+    depends_on:
+      - webserver
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://redis:6379/0
+    command: scheduler
+    networks:
+      - airflow_network
+    volumes:
+      - airflow_logs:/opt/airflow/logs
+      - ./dags:/opt/airflow/dags
+    #user: "1000:1000"  # Tambahkan UID dan GID yang sesuai
+
+  worker:
+    image: apache/airflow:2.11.0
+    container_name: airflow_worker
+    restart: always
+    depends_on:
+      - scheduler
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://admin:1Sampai9@postgres:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://redis:6379/0
+    command: celery worker
+    networks:
+      - airflow_network
+    volumes:
+      - airflow_logs:/opt/airflow/logs
+      - ./dags:/opt/airflow/dags
+    #user: "1000:1000"  # Tambahkan UID dan GID yang sesuai
+
+volumes:
+  postgres_data:
+  postgres_backup:
+  airflow_logs:
+
+networks:
+  airflow_network:
