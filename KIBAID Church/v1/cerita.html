@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kisah Gereja - Sejarah Gereja KIBAID</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-church icon-brand"></i> JEJAK KIBAID
+        </a>
+        <div class="nav-links">
+          <a href="pencarian.html" class="nav-link active">Pencarian</a>
+          <a href="analisis.html" class="nav-link">Analisis</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="story-container">
+      <a href="pencarian.html" class="back-link"><i class="fas fa-arrow-left me-2"></i>Kembali ke Pencarian</a>
+      <h2 id="storyTitle" class="story-title">Memuat cerita...</h2>
+      <p id="cerita" class="story-content">Silakan tunggu...</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>&copy; 2025 Sistem Informasi Sejarah Gereja KIBAID. Desain Baru.</span>
+    </div>
+  </footer>
+
+  <script>
+    const gereja = JSON.parse(localStorage.getItem("selectedGereja"));
+    const storyTitleElement = document.getElementById("storyTitle");
+    const ceritaElement = document.getElementById("cerita");
+
+    if (gereja) {
+      const nama = gereja["Nama Gereja"] || "Nama Gereja Tidak Diketahui";
+      const tahun = gereja["JEMAAT LOKAL"]?.Tahun || gereja["PERSEKUTUAN"]?.Tahun || "tahun yang tidak tercatat";
+      const tempat = gereja["JEMAAT LOKAL"]?.Tempat || gereja["PERSEKUTUAN"]?.Tempat || "lokasi yang tidak disebutkan";
+      const klasis = gereja["Klasis"] || "klasis yang tidak tercatat";
+
+      storyTitleElement.textContent = `Kisah ${nama}`;
+      ceritaElement.innerHTML = `
+        Didirikan pada tahun <strong>${tahun}</strong> di wilayah <strong>${tempat}</strong>, <strong>${nama}</strong> merupakan bagian dari Klasis <strong>${klasis}</strong>. 
+        Perjalanan gereja ini dimulai dari sebuah persekutuan sederhana yang, oleh anugerah dan dedikasi jemaat, bertumbuh menjadi sebuah komunitas iman yang mandiri dan hidup. 
+        Kisah ini adalah cerminan dari iman, ketekunan, dan pertumbuhan spiritual yang menjadi ciri khas komunitas KIBAID.
+      `;
+    } else {
+      storyTitleElement.textContent = "Data Tidak Ditemukan";
+      ceritaElement.textContent = "Data gereja tidak dapat ditemukan. Silakan kembali ke halaman pencarian dan pilih salah satu gereja untuk melihat kisahnya.";
+    }
+  </script>
+</body>
+</html>

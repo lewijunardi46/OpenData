@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kisah Gereja - Sejarah Gereja KIBAID</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-church icon-brand"></i> JEJAK KIBAID
+        </a>
+        <div class="nav-links">
+          <a href="pencarian.html" class="nav-link">Pencarian</a>
+          <a href="analisis.html" class="nav-link">Analisis</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="story-container">
+      <a href="pencarian.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Kembali ke Pencarian
+      </a>
+      <h2 class="story-title" id="storyTitle">Kisah Gereja</h2>
+      <p class="story-content" id="cerita">
+        Memuat kisah inspiratif...
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">&copy; 2025 Jejak KIBAID. Hak Cipta Dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Pastikan script-cerita.js di-load setelah elemen DOM tersedia.
+    // Atau, pindahkan logika ini langsung ke sini jika tidak ada logika lain di script-cerita.js
+    document.addEventListener('DOMContentLoaded', function() {
+      const gereja = JSON.parse(localStorage.getItem("selectedGereja"));
+      const storyTitleElement = document.getElementById("storyTitle");
+      const ceritaElement = document.getElementById("cerita");
+
+      if (gereja) {
+        const nama = gereja["Nama Gereja"] || "Nama Gereja Tidak Diketahui";
+        // Mengakses tahun dari PERSEKUTUAN atau JEMAAT LOKAL
+        const tahunPersekutuan = gereja["PERSEKUTUAN"]?.Tahun;
+        const tahunJemaatLokal = gereja["JEMAAT LOKAL"]?.Tahun;
+        const tahun = tahunJemaatLokal || tahunPersekutuan || "tahun yang tidak tercatat";
+
+        // Mengakses tempat dari PERSEKUTUAN atau JEMAAT LOKAL
+        const tempatPersekutuan = gereja["PERSEKUTUAN"]?.Tempat;
+        const tempatJemaatLokal = gereja["JEMAAT LOKAL"]?.Tempat;
+        const tempat = tempatJemaatLokal || tempatPersekutuan || "lokasi yang tidak disebutkan";
+
+        const klasis = gereja["Klasis"] || "klasis yang tidak tercatat";
+
+        storyTitleElement.textContent = `Kisah ${nama}`;
+        ceritaElement.innerHTML = `
+          Didirikan pada tahun <strong>${tahun}</strong> di wilayah <strong>${tempat}</strong>, <strong>${nama}</strong> merupakan bagian dari Klasis <strong>${klasis}</strong>.
+          Perjalanan gereja ini dimulai dari sebuah persekutuan sederhana yang, oleh anugerah dan dedikasi jemaat, bertumbuh menjadi sebuah komunitas iman yang mandiri dan hidup.
+          Kisah ini adalah cerminan dari iman, ketekunan, dan pertumbuhan spiritual yang menjadi ciri khas komunitas KIBAID.
+        `;
+      } else {
+        storyTitleElement.textContent = "Data Tidak Ditemukan";
+        ceritaElement.textContent = "Data gereja tidak ditemukan. Silakan kembali ke halaman pencarian.";
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

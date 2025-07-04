@@ -1,0 +1,568 @@
+/* --- Global Reset & Base --- */
+:root {
+  --font-primary: 'Inter', sans-serif; /* Font utama yang lebih modern dan bersih */
+  --font-secondary: 'Montserrat', sans-serif; /* Font sekunder untuk judul, lebih tegas */
+  --color-primary: #2C3E50; /* Biru tua/navy untuk nuansa korporasi */
+  --color-secondary: #34495E; /* Sedikit lebih terang dari primary untuk aksen */
+  --color-accent: #3498DB; /* Biru cerah sebagai aksen */
+  --color-dark: #212529; /* Teks gelap */
+  --color-text: #495057; /* Warna teks umum */
+  --color-light: #F8F9FA; /* Latar belakang sangat terang */
+  --color-border: #E0E0E0; /* Warna border yang soft */
+  --border-radius: .4rem;
+  --transition-speed: 0.3s ease-in-out;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: #fff;
+  color: var(--color-text);
+  line-height: 1.6; /* Sedikit lebih lega */
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px; /* Sedikit lebih lebar untuk nuansa korporasi */
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Padding yang sedikit lebih besar */
+}
+
+/* --- Header & Navigation --- */
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid var(--color-border);
+  padding: 1.2rem 0; /* Padding sedikit lebih tinggi */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Bayangan soft untuk kesan premium */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-family: var(--font-secondary);
+  font-weight: 700;
+  font-size: 1.6rem; /* Ukuran lebih besar */
+  color: var(--color-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.icon-brand {
+  color: var(--color-accent); /* Aksen warna pada ikon */
+  margin-right: 0.6rem;
+  font-size: 1.8rem;
+}
+
+.nav-links .nav-link {
+  color: var(--color-dark);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 1.8rem; /* Jarak antar link lebih besar */
+  transition: color var(--transition-speed);
+  position: relative;
+  padding-bottom: 0.3rem; /* Memberi ruang untuk underline */
+}
+
+.nav-links .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width var(--transition-speed);
+}
+
+.nav-links .nav-link:hover::after,
+.nav-links .nav-link.active::after {
+  width: 100%;
+}
+
+.nav-links .nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-links .nav-link.active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* --- Main Content (Umum) --- */
+.page-header {
+  text-align: center;
+  margin-bottom: 3.5rem; /* Lebih banyak ruang */
+  padding-top: 2rem;
+}
+
+.page-title {
+  font-family: var(--font-secondary);
+  font-size: 2.8rem; /* Ukuran judul lebih besar */
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.03em; /* Sedikit lebih ketat */
+}
+
+.page-description {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* --- Home Page (index.html) --- */
+.hero-section {
+  text-align: center;
+  padding: 80px 0; /* Padding yang lebih besar untuk kesan "hero" */
+  background-color: var(--color-light); /* Latar belakang soft */
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hero-title {
+  font-family: var(--font-secondary);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text);
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+}
+
+.card-section {
+  padding: 60px 0;
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04); /* Bayangan yang lebih soft */
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  overflow: hidden; /* Memastikan border-radius bekerja dengan baik */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efek hover yang halus */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card-body {
+  padding: 2.5rem; /* Padding lebih besar di dalam kartu */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-icon {
+  font-size: 2.8rem; /* Ukuran ikon lebih besar */
+  margin-bottom: 1.5rem;
+  color: var(--color-accent); /* Menggunakan warna aksen */
+}
+
+.card-title {
+  font-family: var(--font-secondary);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--color-dark);
+  margin-bottom: 0.8rem;
+}
+
+.card-text-description {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  flex-grow: 1; /* Memastikan teks mengisi ruang yang tersedia */
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-speed);
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: #fff;
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Modifikasi tombol spesifik di index.html */
+.btn-outline-info {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.btn-outline-info:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+.btn-outline-warning {
+  border-color: #F39C12; /* Oranye yang lebih korporasi */
+  color: #F39C12;
+}
+.btn-outline-warning:hover {
+  background-color: #F39C12;
+  color: #fff;
+}
+
+.btn-outline-success {
+  border-color: #2ECC71; /* Hijau yang lebih korporasi */
+  color: #2ECC71;
+}
+.btn-outline-success:hover {
+  background-color: #2ECC71;
+  color: #fff;
+}
+
+
+/* --- Search Page (pencarian.html) --- */
+.search-container {
+  position: relative;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.9rem 1.2rem 0.9rem 3rem; /* Ruang untuk ikon */
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  color: var(--color-dark);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Ring focus yang lebih halus */
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text);
+  font-size: 1.1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  overflow: hidden; /* Memastikan border-radius pada tabel */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.table-header th {
+  background-color: var(--color-light); /* Latar belakang header tabel */
+  color: var(--color-dark);
+  font-weight: 600;
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-speed);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-light);
+}
+
+.table td {
+  padding: 1rem 1.2rem;
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.table-action-buttons .btn-detail,
+.table-action-buttons .btn-download {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  margin: 0 0.25rem;
+  white-space: nowrap; /* Mencegah tombol pecah baris */
+}
+
+.btn-detail {
+  background-color: var(--color-accent);
+  color: #fff;
+  border: 1px solid var(--color-accent);
+}
+.btn-detail:hover {
+  background-color: #2980B9; /* Warna aksen lebih gelap */
+  border-color: #2980B9;
+}
+
+.btn-download {
+  background-color: #95A5A6; /* Abu-abu netral */
+  color: #fff;
+  border: 1px solid #95A5A6;
+}
+.btn-download:hover {
+  background-color: #7F8C8D;
+  border-color: #7F8C8D;
+}
+
+.placeholder-text {
+  padding: 2rem !important;
+  font-style: italic;
+  color: var(--color-text);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-bottom: 2rem;
+}
+
+.page-item {
+  list-style: none;
+  margin: 0 0.25rem;
+}
+
+.page-link {
+  display: block;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  color: var(--color-dark);
+  text-decoration: none;
+  transition: all var(--transition-speed);
+  min-width: 40px; /* Lebar minimum untuk tombol */
+  text-align: center;
+}
+
+.page-link:hover {
+  background-color: var(--color-light);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.page-item.active .page-link {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* --- Analysis Page (analisis.html) --- */
+.analysis-cards .card-body {
+  text-align: center;
+}
+
+.analysis-cards .card-title {
+  font-size: 1.4rem; /* Sedikit lebih kecil dari judul kartu di home */
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.analysis-cards .card-title i {
+  margin-right: 0.8rem;
+  font-size: 1.6rem;
+}
+
+.analysis-cards .card-text.lead {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 1rem;
+}
+
+.analysis-cards .text-muted.small {
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+/* Warna spesifik untuk kartu analisis */
+.text-info { color: var(--color-accent) !important; }
+.text-warning { color: #F39C12 !important; }
+.text-danger { color: #E74C3C !important; } /* Merah yang lebih korporasi */
+.text-success { color: #2ECC71 !important; }
+
+
+/* --- Story Page (cerita.html) --- */
+.story-container {
+  max-width: 800px; /* Lebih lebar untuk cerita */
+  margin: 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.back-link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  transition: color var(--transition-speed);
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
+
+.back-link i {
+  margin-right: 0.5rem;
+}
+
+.story-title {
+  font-family: var(--font-secondary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.story-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-dark);
+}
+
+.story-content strong {
+  color: var(--color-primary);
+}
+
+/* --- Footer --- */
+.footer {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 2.5rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 4rem; /* Memberi jarak dari konten utama */
+}
+
+.footer-text {
+  margin-bottom: 0.5rem;
+}
+
+.footer-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+.footer-link:hover {
+  color: #fff;
+}
+
+/* Utility classes for Bootstrap overrides if needed, but prefer to use the variables */
+.fw-bold { font-weight: 700 !important; }
+.text-center { text-align: center !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+/* ... tambahkan kelas utilitas lainnya sesuai kebutuhan, tapi sebisa mungkin gunakan gaya kustom */
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-links {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .nav-links .nav-link {
+    margin: 0 0.8rem;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .page-title {
+    font-size: 2rem;
+  }
+  .card-body {
+    padding: 1.8rem;
+  }
+  .table-header th, .table td {
+    padding: 0.8rem 1rem;
+  }
+  .table-action-buttons .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .page-title {
+    font-size: 1.8rem;
+  }
+  .search-input {
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+  }
+  .search-icon {
+    left: 0.8rem;
+  }
+}
