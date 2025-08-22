@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  n8n:
+    image: n8nio/n8n:1.108.1
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      # Container mendengarkan di semua interface
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - GENERIC_TIMEZONE=Asia/Jakarta
+      # Enkripsi credential
+      - N8N_ENCRYPTION_KEY=supersecretkey123
+      # Override URL webhook agar bisa diakses dari host Windows
+      - WEBHOOK_URL=http://localhost:5678
+    volumes:
+      - ./n8n_data:/home/node/.n8n
