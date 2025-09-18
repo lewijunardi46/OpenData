@@ -1,0 +1,28 @@
+{
+  "jumlah_klasis": 12,
+  "jumlah_pelayanan_total": 180,
+  "pelayanan_tertua": {
+    "nama": "Jemaat Latimojong",
+    "tahun": 1936
+  },
+  "pelayanan_terbaru": {
+    "nama": "Jemaat XYZ",
+    "tahun": 2022
+  },
+  "pertumbuhan_periode": [
+    { "periode": "1930-1935", "jumlah": 3 },
+    { "periode": "1936-1940", "jumlah": 5 },
+    { "periode": "1941-1945", "jumlah": 4 },
+    { "periode": "1946-1950", "jumlah": 6 },
+    { "periode": "1951-1955", "jumlah": 8 },
+    { "periode": "1956-1960", "jumlah": 10 }
+  ],
+  "distribusi_klasis": [
+    { "klasis": "Makassar", "jumlah": 25 },
+    { "klasis": "Toraja", "jumlah": 40 },
+    { "klasis": "Mamasa", "jumlah": 30 },
+    { "klasis": "Papua", "jumlah": 15 },
+    { "klasis": "Luwu", "jumlah": 20 },
+    { "klasis": "Kalimantan", "jumlah": 10 }
+  ]
+}
